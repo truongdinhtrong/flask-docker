@@ -22,7 +22,8 @@ pipeline {
         sh "poetry run pytest"
       }
     }
-    stage('Login to Docker Hub') {      	
+    stage('Login to Docker Hub') {  
+      agent { node {label 'master'}}    	
       steps{                       	
 	      sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'                		
 	      echo 'Login Completed'      
