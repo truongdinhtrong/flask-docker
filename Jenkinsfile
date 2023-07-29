@@ -4,7 +4,9 @@ pipeline {
 
   environment {
     DOCKER_IMAGE = "truongdinhtrongctim/flask-docker"
+    DOCKERHUB_CREDENTIALS= credentials('dockerhub-token')  
   }
+
 
   stages {
     stage("Test") {
@@ -20,7 +22,12 @@ pipeline {
         sh "poetry run pytest"
       }
     }
-
+    stage('Login to Docker Hub') {      	
+      steps{                       	
+	      sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'                		
+	      echo 'Login Completed'      
+      }           
+    } 
     stage("build") {
       agent { node {label 'master'}}
       environment {
