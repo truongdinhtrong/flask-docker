@@ -14,7 +14,7 @@ def test_dummy():
     assert 2 - 2 == 0
     assert 8 - 8 == 0
     assert 11 - 11 == 0
-
+    assert 12 - 12 == 0
 
 
 def test_version():
