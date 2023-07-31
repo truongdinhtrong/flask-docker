@@ -21,12 +21,14 @@ pipeline {
         sh "poetry run pytest"
       }
     }
+    
     stage('SonarQube Analysis') {
     def scannerHome = tool 'SonarScanner';
     withSonarQubeEnv() {
       sh "${scannerHome}/bin/sonar-scanner"
       }
     }
+
     stage("build") {
       agent { node {label 'master'}}
       environment {
