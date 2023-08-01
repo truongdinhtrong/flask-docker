@@ -22,23 +22,25 @@ pipeline {
       }
     }
 
-    // stage('Sonarqube') {
-    //     environment {
-    //         scannerHome = tool 'SonarQubeScanner'
-    //     }
-    //     steps {
-    //         withSonarQubeEnv('sonarqube') {
-    //             sh "${scannerHome}/bin/sonar-scanner"
-    //         }
-    //         timeout(time: 10, unit: 'MINUTES') {
-    //             waitForQualityGate abortPipeline: true
-    //         }
-    //     }
-    // }
-  stage('SonarQube analysis') {
-    def sonarqubeScannerHome = tool name: 'SonarQubeScanner'
-    sh "${sonarqubeScannerHome}/bin/sonar-scanner -Dsonar.host.url=http://172.31.39.232:9099 -Dproject.settings='sonar-project.properties' -Dsonar.projectBaseDir=."
-  }
+    stage('Sonarqube') {
+      agent { node {label 'master'}}
+        environment {
+            scannerHome = tool 'SonarQubeScanner'
+        }
+        steps {
+            withSonarQubeEnv('sonarqube') {
+                sh "${scannerHome}/bin/sonar-scanner"
+            }
+            timeout(time: 10, unit: 'MINUTES') {
+                waitForQualityGate abortPipeline: true
+            }
+        }
+    }
+
+  // stage('SonarQube analysis') {
+  //   def sonarqubeScannerHome = tool name: 'SonarQubeScanner'
+  //   sh "${sonarqubeScannerHome}/bin/sonar-scanner -Dsonar.host.url=http://172.31.39.232:9099 -Dproject.settings='sonar-project.properties' -Dsonar.projectBaseDir=."
+  // }
     stage("build") {
       agent { node {label 'master'}}
       environment {
