@@ -12,7 +12,6 @@ def test_dummy():
     assert 2 + 3 == 5
     assert 2 * 2 == 4
     assert 2 - 2 == 0
-<<<<<<< HEAD
     assert 8 - 8 == 0
     assert 18 - 18 == 0
 
@@ -20,9 +19,6 @@ def test_dummy():
 # -------
 # 0000000
 # 8888888
-=======
-    assert 5 - 5 == 0
->>>>>>> main
 
 def test_version():
     assert __version__ == '0.1.0'
