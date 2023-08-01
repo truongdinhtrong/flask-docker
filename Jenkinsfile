@@ -37,10 +37,6 @@ pipeline {
         }
     }
 
-  // stage('SonarQube analysis') {
-  //   def sonarqubeScannerHome = tool name: 'SonarQubeScanner'
-  //   sh "${sonarqubeScannerHome}/bin/sonar-scanner -Dsonar.host.url=http://172.31.39.232:9099 -Dproject.settings='sonar-project.properties' -Dsonar.projectBaseDir=."
-  // }
     stage("build") {
       agent { node {label 'master'}}
       environment {
